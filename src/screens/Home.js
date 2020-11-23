@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/self-closing-comp */
 import React, {Component} from 'react';
 import {
@@ -7,30 +8,53 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  Modal,
+  Alert,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Btn from '../components/btn';
 
 export default class Home extends Component {
+  state = {
+    modalVisible: false,
+    txt: '',
+    modalSP: true,
+  };
+
+  setModalVisible = (visible) => {
+    this.setState({modalVisible: visible});
+  };
+
   renderItem = () => {
     return (
       <View style={styles.rowitem}>
         <View style={styles.rowitemc}>
-          <View style={{width: 100}}>
-            <Text style={styles.txt}>Đồ uống các loại</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(true);
+              this.setState({txt: 'Đồ uống các loại'});
+            }}>
+            <View style={{width: 100}}>
+              <Text style={styles.txt}>Đồ uống các loại</Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.rowitemc}>
-          <View style={{width: 100}}>
-            <Text style={styles.txt}>Bánh kẹo, trà, cà phê</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              this.setModalVisible(true);
+              this.setState({txt: 'Bánh kẹo, trà, cà phê'});
+            }}>
+            <View style={{width: 100}}>
+              <Text style={styles.txt}>Bánh kẹo, trà, cà phê</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     );
   };
+
   renderSale = () => {
     return (
       <View
@@ -68,44 +92,51 @@ export default class Home extends Component {
       </View>
     );
   };
+
   renderSaleDay = () => {
     return (
-      <View style={styles.itemgt}>
-        <View
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            backgroundColor: 'gray',
-            width: 110,
-            height: 100,
-            margin: 10,
-          }}></View>
-        <Text style={{marginLeft: 10, fontSize: 16, fontWeight: 'bold'}}>
-          3xx,xxxđ
-        </Text>
-        <Text style={{marginLeft: 10, marginTop: 40}}>
-          Bánh quy sữa cosy marie hộp sắt...
-        </Text>
-        <Text style={{color: '#808080', marginLeft: 10, marginTop: 15}}>
-          thùng 200 hộp
-        </Text>
-        <TouchableOpacity
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            width: 95,
-            height: 30,
-            backgroundColor: '#b3e5fc',
-            borderRadius: 10,
-            justifyContent: 'center',
-            flexDirection: 'row',
-            marginLeft: 18,
-            paddingTop: 4,
-            marginTop: 10,
-          }}>
-          <Text>Chọn</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({modalSP: true});
+        }}>
+        <View style={styles.itemgt}>
+          <View
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              backgroundColor: 'gray',
+              width: 110,
+              height: 100,
+              margin: 10,
+            }}></View>
+          <Text style={{marginLeft: 10, fontSize: 16, fontWeight: 'bold'}}>
+            3xx,xxxđ
+          </Text>
+          <Text style={{marginLeft: 10, marginTop: 40}}>
+            Bánh quy sữa cosy marie hộp sắt...
+          </Text>
+          <Text style={{color: '#808080', marginLeft: 10, marginTop: 15}}>
+            thùng 200 hộp
+          </Text>
+          <TouchableOpacity
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              width: 95,
+              height: 30,
+              backgroundColor: '#b3e5fc',
+              borderRadius: 10,
+              justifyContent: 'center',
+              flexDirection: 'row',
+              marginLeft: 18,
+              paddingTop: 4,
+              marginTop: 10,
+            }}>
+            <Text>Chọn</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
     );
   };
+
   renderTKPB = () => {
     return (
       <View
@@ -200,6 +231,7 @@ export default class Home extends Component {
       </View>
     );
   };
+
   renderNH = () => {
     return (
       <View style={{flexDirection: 'column'}}>
@@ -244,26 +276,234 @@ export default class Home extends Component {
       </View>
     );
   };
+
+  renderModal = () => {
+    const modalSP = this.state;
+    return (
+      <Modal animationType="slide" transparent={true} visible={modalSP}>
+        <View
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            marginTop: '50%',
+            backgroundColor: '#FFFFFF',
+            flex: 1,
+            borderRadius: 15,
+          }}>
+          <View
+            // eslint-disable-next-line react-native/no-inline-styles
+            style={{
+              margin: 15,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{fontWeight: 'bold'}}>{}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({modalSP: false});
+              }}>
+              <Icon name="close" size={25} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+
   render() {
+    const {modalVisible, modalSP} = this.state;
     return (
       <SafeAreaView style={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View
+            style={{
+              marginTop: '50%',
+              backgroundColor: '#FFFFFF',
+              flex: 1,
+              borderRadius: 15,
+            }}>
+            <View
+              style={{
+                margin: 15,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={{fontWeight: 'bold'}}>{this.state.txt}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(false);
+                }}>
+                <Icon name="close" size={25} />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 10,
+                }}>
+                <View>
+                  <View style={styles.itemmodal}></View>
+                  <Text style={{marginLeft: 40}}>Bia</Text>
+                </View>
+                <View>
+                  <View style={styles.itemmodal}></View>
+                  <Text style={{marginLeft: 40}}>Bia</Text>
+                </View>
+                <View>
+                  <View style={styles.itemmodal}></View>
+                  <Text style={{marginLeft: 40}}>Bia</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalSP}
+          backdropOpacity={10}>
+          <View
+            style={{
+              marginTop: '50%',
+              backgroundColor: '#FFFFFF',
+              flex: 1,
+              borderRadius: 15,
+            }}>
+            <View
+              style={{
+                margin: 15,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <View style={{flexDirection: 'row'}}>
+                <View
+                  style={{
+                    width: 60,
+                    height: 60,
+                    backgroundColor: 'red',
+                  }}></View>
+                <View style={{marginLeft: 10}}>
+                  <Text>Nước Tương Maggi</Text>
+                  <Text style={{color: '#808080'}}>Thùng 12 hộp</Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      marginTop: 5,
+                      color: 'red',
+                      fontWeight: 'bold',
+                    }}>
+                    3xx,000 đ
+                  </Text>
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({modalSP: false});
+                }}>
+                <Icon name="close" size={25} />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <View
+                style={{
+                  borderWidth: 0.3,
+                  margin: 15,
+                  padding: 10,
+                  borderRadius: 10,
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View>
+                    <Text style={{color: '#808080'}}>Xuất sứ</Text>
+                    <Text>Viet nam</Text>
+                  </View>
+                  <View>
+                    <Text style={{color: '#808080'}}>Dung tích</Text>
+                    <Text>700ml</Text>
+                  </View>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  margin: 15,
+                }}>
+                <View
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 5,
+                    backgroundColor: 'gray',
+                    justifyContent: 'center',
+                    paddingLeft: 20,
+                  }}>
+                  <Text style={{fontSize: 30}}>-</Text>
+                </View>
+                <View
+                  style={{
+                    borderWidth: 0.3,
+                    height: 50,
+                    borderRadius: 5,
+                    width: '70%',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={{marginLeft: 50, fontSize: 16}}>Số Lượng: </Text>
+                </View>
+                <View
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 5,
+                    backgroundColor: 'gray',
+                    justifyContent: 'center',
+                    paddingLeft: 16,
+                  }}>
+                  <Text style={{fontSize: 30}}>+</Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  backgroundColor: 'rgba(74,144,226,1)',
+                  borderRadius: 10,
+                  height: 45,
+                  marginLeft: 15,
+                  marginRight: 15,
+                  marginTop: 20,
+                }}></View>
+            </View>
+          </View>
+        </Modal>
+
         <ScrollView style={{flex: 1}}>
           <View style={styles.container}>
             <View style={styles.cpTop}>
               <View style={styles.icon}>
-                <Icon style={{marginLeft: 10}} name="search" size={30} />
+                <Icon style={{marginLeft: 10}} name="search" size={20} />
                 <Text style={{fontSize: 12}}>Tìm Kiếm</Text>
               </View>
               <View style={styles.icon}>
-                <Icon style={{marginLeft: 13}} name="file-text-o" size={30} />
+                <Icon style={{marginLeft: 13}} name="file-text-o" size={20} />
                 <Text style={{fontSize: 12}}>Đơn hàng</Text>
               </View>
               <View style={styles.icon}>
-                <Icon style={{marginLeft: 10}} name="shopping-bag" size={30} />
+                <Icon style={{marginLeft: 10}} name="shopping-bag" size={20} />
                 <Text style={{fontSize: 12}}>Bán hàng</Text>
               </View>
               <View style={styles.icon}>
-                <Icon style={{marginLeft: 6}} name="percent" size={30} />
+                <Icon style={{marginLeft: 6}} name="percent" size={20} />
                 <Text style={{fontSize: 12}}>Ưu đãi</Text>
               </View>
             </View>
@@ -299,7 +539,6 @@ export default class Home extends Component {
             </View>
 
             <View
-              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 marginLeft: 15,
                 flexDirection: 'row',
@@ -321,7 +560,6 @@ export default class Home extends Component {
             </View>
 
             <View
-              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 marginLeft: 15,
                 flexDirection: 'row',
@@ -353,7 +591,6 @@ export default class Home extends Component {
             </View>
 
             <View
-              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 marginLeft: 15,
                 flexDirection: 'row',
@@ -376,7 +613,6 @@ export default class Home extends Component {
             </View>
 
             <View
-              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 marginLeft: 15,
                 flexDirection: 'row',
@@ -399,7 +635,6 @@ export default class Home extends Component {
             </View>
 
             <View
-              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 marginLeft: 15,
                 flexDirection: 'row',
@@ -420,7 +655,6 @@ export default class Home extends Component {
               </ScrollView>
             </View>
             <View
-              // eslint-disable-next-line react-native/no-inline-styles
               style={{
                 marginLeft: 15,
                 flexDirection: 'row',
@@ -444,7 +678,6 @@ export default class Home extends Component {
           </View>
 
           <View
-            // eslint-disable-next-line react-native/no-inline-styles
             style={{
               marginLeft: 15,
               flexDirection: 'row',
@@ -466,7 +699,6 @@ export default class Home extends Component {
             </View>
           </View>
           <View
-            // eslint-disable-next-line react-native/no-inline-styles
             style={{
               height: 0.5,
               width: '80%',
@@ -486,7 +718,6 @@ export default class Home extends Component {
             </View>
           </View>
           <View
-            // eslint-disable-next-line react-native/no-inline-styles
             style={{
               height: 0.5,
               width: '80%',
@@ -507,7 +738,6 @@ export default class Home extends Component {
           </View>
 
           <View
-            // eslint-disable-next-line react-native/no-inline-styles
             style={{
               flexDirection: 'row',
               width: '75%',
@@ -528,6 +758,13 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+  itemmodal: {
+    width: 60,
+    height: 60,
+    backgroundColor: 'gray',
+    margin: 20,
+    borderRadius: 15,
+  },
   itemgt: {
     backgroundColor: '#FFFFFF',
     width: 130,
@@ -545,7 +782,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     marginTop: 15,
   },
-  txt: {fontWeight: 'bold', fontSize: 16, margin: 5},
+  txt: {fontWeight: 'bold', fontSize: 13, margin: 5},
   rowitemc: {
     width: 170,
     height: 50,

@@ -14,6 +14,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Home from './Home';
+import UserScreen from './userScreen';
+import notiScreen from './notiScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,7 +34,7 @@ function TabScreen() {
       />
       <Tab.Screen
         name="Thông báo"
-        component={Home}
+        component={notiScreen}
         options={{
           //title: 'Home',
           tabBarIcon: ({focused}) => (
@@ -42,7 +44,7 @@ function TabScreen() {
       />
       <Tab.Screen
         name="Tài khoản"
-        component={Home}
+        component={UserScreen}
         options={{
           //title: 'Home',
           tabBarIcon: ({focused}) => (
