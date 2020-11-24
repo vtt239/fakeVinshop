@@ -924,6 +924,11 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.10.tgz"
   "version" "0.1.10"
 
+"@react-native-picker/picker@^1.9.2":
+  "integrity" "sha512-eNMf5uF67CsiJ9SDzofSWKu9Gh2PDyPbCSXuUJ09tkRgcOefDx6DyQnXCOPCd+8vxC1DzJKVAgLy+s425jUIeA=="
+  "resolved" "https://registry.npmjs.org/@react-native-picker/picker/-/picker-1.9.2.tgz"
+  "version" "1.9.2"
+
 "@react-navigation/bottom-tabs@^5.11.1":
   "integrity" "sha512-fkkFzEIOZzV98sbq2kee/cXNIO3L/2x4cDGP0oIqhXDxser78J0jg08pZqyF6IIq9gPHo5T8vGffvhNBaZoCGw=="
   "resolved" "https://registry.npmjs.org/@react-navigation/bottom-tabs/-/bottom-tabs-5.11.1.tgz"

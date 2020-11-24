@@ -19,7 +19,7 @@ export default class Home extends Component {
   state = {
     modalVisible: false,
     txt: '',
-    modalSP: true,
+    modalSP: false,
   };
 
   setModalVisible = (visible) => {
@@ -118,7 +118,9 @@ export default class Home extends Component {
             thùng 200 hộp
           </Text>
           <TouchableOpacity
-            // eslint-disable-next-line react-native/no-inline-styles
+            onPress={() => {
+              this.setState({modalSP: true});
+            }}
             style={{
               width: 95,
               height: 30,
@@ -311,8 +313,10 @@ export default class Home extends Component {
 
   render() {
     const {modalVisible, modalSP} = this.state;
+    //if(this.state.modalSP === true || this.state.modalVisible === true)
     return (
-      <SafeAreaView style={styles.container}>
+      // <View style={{backgroundColor: 'gray', flex: 1}}>
+      <SafeAreaView style={{flex: 1}}>
         <Modal
           animationType="slide"
           transparent={true}
@@ -326,6 +330,15 @@ export default class Home extends Component {
               backgroundColor: '#FFFFFF',
               flex: 1,
               borderRadius: 15,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 12,
+              },
+              shadowOpacity: 0.58,
+              shadowRadius: 16.0,
+
+              elevation: 24,
             }}>
             <View
               style={{
@@ -376,6 +389,15 @@ export default class Home extends Component {
               backgroundColor: '#FFFFFF',
               flex: 1,
               borderRadius: 15,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 12,
+              },
+              shadowOpacity: 0.58,
+              shadowRadius: 16.0,
+
+              elevation: 24,
             }}>
             <View
               style={{
@@ -487,107 +509,204 @@ export default class Home extends Component {
           </View>
         </Modal>
 
-        <ScrollView style={{flex: 1}}>
-          <View style={styles.container}>
-            <View style={styles.cpTop}>
-              <View style={styles.icon}>
-                <Icon style={{marginLeft: 10}} name="search" size={20} />
-                <Text style={{fontSize: 12}}>Tìm Kiếm</Text>
-              </View>
-              <View style={styles.icon}>
-                <Icon style={{marginLeft: 13}} name="file-text-o" size={20} />
-                <Text style={{fontSize: 12}}>Đơn hàng</Text>
-              </View>
-              <View style={styles.icon}>
-                <Icon style={{marginLeft: 10}} name="shopping-bag" size={20} />
-                <Text style={{fontSize: 12}}>Bán hàng</Text>
-              </View>
-              <View style={styles.icon}>
-                <Icon style={{marginLeft: 6}} name="percent" size={20} />
-                <Text style={{fontSize: 12}}>Ưu đãi</Text>
-              </View>
-            </View>
-
-            <View style={styles.vsh}>
-              <ScrollView
-                horizontal={true}
-                pagingEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                //persistentScrollbar={false}
-              >
-                <View
-                  style={[styles.imgscroll, {backgroundColor: 'red'}]}></View>
-                <View
-                  style={[
-                    styles.imgscroll,
-                    {backgroundColor: 'skyblue'},
-                  ]}></View>
-                <View
-                  style={[
-                    styles.imgscroll,
-                    {backgroundColor: 'yellow'},
-                  ]}></View>
-                <View
-                  style={[styles.imgscroll, {backgroundColor: 'red'}]}></View>
-              </ScrollView>
-            </View>
-
-            <View style={styles.item}>
-              <this.renderItem />
-              <this.renderItem />
-              <this.renderItem />
-            </View>
-
-            <View
-              style={{
-                marginLeft: 15,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginHorizontal: 15,
-                marginTop: 20,
-              }}>
-              <Text style={styles.txt}>Ưu đãi</Text>
-              <Text style={[styles.txt, {color: 'blue'}]}>Tất cả</Text>
-            </View>
-
-            <View style={{marginTop: 10}}>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <this.renderSale />
-                <this.renderSale />
-              </ScrollView>
-            </View>
-
-            <View
-              style={{
-                marginLeft: 15,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginHorizontal: 15,
-                marginTop: 20,
-              }}>
-              <Text style={styles.txt}>Giá tốt mỗi ngày</Text>
-            </View>
-
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <View style={{justifyContent: 'center'}}>
-                  <Icon
-                    name="chevron-right"
-                    size={35}
-                    style={{marginLeft: 15}}
-                  />
-                  <Text style={{fontSize: 12, marginRight: 10}}>Xem thêm</Text>
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <ScrollView style={{flex: 1}}>
+            <View style={styles.container}>
+              <View style={styles.cpTop}>
+                <View style={styles.icon}>
+                  <Icon style={{marginLeft: 10}} name="search" size={20} />
+                  <Text style={{fontSize: 12}}>Tìm Kiếm</Text>
                 </View>
-              </ScrollView>
+                <View style={styles.icon}>
+                  <Icon style={{marginLeft: 13}} name="file-text-o" size={20} />
+                  <Text style={{fontSize: 12}}>Đơn hàng</Text>
+                </View>
+                <View style={styles.icon}>
+                  <Icon
+                    style={{marginLeft: 10}}
+                    name="shopping-bag"
+                    size={20}
+                  />
+                  <Text style={{fontSize: 12}}>Bán hàng</Text>
+                </View>
+                <View style={styles.icon}>
+                  <Icon style={{marginLeft: 6}} name="percent" size={20} />
+                  <Text style={{fontSize: 12}}>Ưu đãi</Text>
+                </View>
+              </View>
+
+              <View style={styles.vsh}>
+                <ScrollView
+                  horizontal={true}
+                  pagingEnabled={true}
+                  showsHorizontalScrollIndicator={false}
+                  //persistentScrollbar={false}
+                >
+                  <View
+                    style={[styles.imgscroll, {backgroundColor: 'red'}]}></View>
+                  <View
+                    style={[
+                      styles.imgscroll,
+                      {backgroundColor: 'skyblue'},
+                    ]}></View>
+                  <View
+                    style={[
+                      styles.imgscroll,
+                      {backgroundColor: 'yellow'},
+                    ]}></View>
+                  <View
+                    style={[styles.imgscroll, {backgroundColor: 'red'}]}></View>
+                </ScrollView>
+              </View>
+
+              <View style={styles.item}>
+                <this.renderItem />
+                <this.renderItem />
+                <this.renderItem />
+              </View>
+
+              <View
+                style={{
+                  marginLeft: 15,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 15,
+                  marginTop: 20,
+                }}>
+                <Text style={styles.txt}>Ưu đãi</Text>
+                <Text style={[styles.txt, {color: 'blue'}]}>Tất cả</Text>
+              </View>
+
+              <View style={{marginTop: 10}}>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  <this.renderSale />
+                  <this.renderSale />
+                </ScrollView>
+              </View>
+
+              <View
+                style={{
+                  marginLeft: 15,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 15,
+                  marginTop: 20,
+                }}>
+                <Text style={styles.txt}>Giá tốt mỗi ngày</Text>
+              </View>
+
+              <View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <View style={{justifyContent: 'center'}}>
+                    <Icon
+                      name="chevron-right"
+                      size={35}
+                      style={{marginLeft: 15}}
+                    />
+                    <Text style={{fontSize: 12, marginRight: 10}}>
+                      Xem thêm
+                    </Text>
+                  </View>
+                </ScrollView>
+              </View>
+
+              <View
+                style={{
+                  marginLeft: 15,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 15,
+                  marginTop: 20,
+                }}>
+                <Text style={styles.txt}>Sản phẩm bán chạy</Text>
+              </View>
+              <View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                </ScrollView>
+              </View>
+
+              <View
+                style={{
+                  marginLeft: 15,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 15,
+                  marginTop: 20,
+                }}>
+                <Text style={styles.txt}>Dành riêng cho bạn</Text>
+              </View>
+              <View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                  <this.renderSaleDay />
+                </ScrollView>
+              </View>
+
+              <View
+                style={{
+                  marginLeft: 15,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 15,
+                  marginTop: 20,
+                }}>
+                <Text style={styles.txt}>Tìm kiếm phổ biến</Text>
+              </View>
+              <View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  <this.renderTKPB />
+                  <this.renderTKPB />
+                  <this.renderTKPB />
+                  <this.renderTKPB />
+                </ScrollView>
+              </View>
+              <View
+                style={{
+                  marginLeft: 15,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginHorizontal: 15,
+                  marginTop: 20,
+                }}>
+                <Text style={styles.txt}>Nhãn hàng nổi bật</Text>
+              </View>
+              <View>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}>
+                  <this.renderNH />
+                  <this.renderNH />
+                  <this.renderNH />
+                  <this.renderNH />
+                  <this.renderNH />
+                </ScrollView>
+              </View>
             </View>
 
             <View
@@ -598,161 +717,88 @@ export default class Home extends Component {
                 marginHorizontal: 15,
                 marginTop: 20,
               }}>
-              <Text style={styles.txt}>Sản phẩm bán chạy</Text>
-            </View>
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-              </ScrollView>
+              <Text style={styles.txt}>Lợi ích khi tham gia</Text>
             </View>
 
             <View
               style={{
-                marginLeft: 15,
+                marginHorizontal: 30,
+                marginTop: 15,
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginHorizontal: 15,
-                marginTop: 20,
               }}>
-              <Text style={styles.txt}>Dành riêng cho bạn</Text>
+              <Icon style={{marginTop: 3}} name="dollar" size={30} />
+              <View style={{marginLeft: 20}}>
+                <Text style={{fontSize: 14}}>Tăng thu nhập 10tr/tháng</Text>
+                <Text style={{fontSize: 12, color: '#808080'}}>
+                  Đa dạng chương trình
+                </Text>
+              </View>
             </View>
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-                <this.renderSaleDay />
-              </ScrollView>
+            <View
+              style={{
+                height: 0.5,
+                width: '80%',
+                marginHorizontal: 30,
+                backgroundColor: 'gray',
+                marginTop: 10,
+              }}
+            />
+            <View
+              style={{
+                marginHorizontal: 30,
+                marginTop: 15,
+                flexDirection: 'row',
+              }}>
+              <Icon style={{marginTop: 3}} name="dollar" size={30} />
+              <View style={{marginLeft: 20}}>
+                <Text style={{fontSize: 14}}>Tăng thu nhập 10tr/tháng</Text>
+                <Text style={{fontSize: 12, color: '#808080'}}>
+                  Đa dạng chương trình
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                height: 0.5,
+                width: '80%',
+                marginHorizontal: 30,
+                backgroundColor: 'gray',
+                marginTop: 10,
+              }}
+            />
+            <View
+              style={{
+                marginHorizontal: 30,
+                marginTop: 15,
+                flexDirection: 'row',
+              }}>
+              <Icon style={{marginTop: 3}} name="dollar" size={30} />
+              <View style={{marginLeft: 20}}>
+                <Text style={{fontSize: 14}}>Tăng thu nhập 10tr/tháng</Text>
+                <Text style={{fontSize: 12, color: '#808080'}}>
+                  Đa dạng chương trình
+                </Text>
+              </View>
             </View>
 
             <View
               style={{
-                marginLeft: 15,
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginHorizontal: 15,
-                marginTop: 20,
+                width: '75%',
+                height: 35,
+                justifyContent: 'center',
+                borderWidth: 0.5,
+                borderRadius: 10,
+                margin: 30,
+                marginHorizontal: 55,
               }}>
-              <Text style={styles.txt}>Tìm kiếm phổ biến</Text>
+              <Icon style={{margin: 5}} name="headphones" size={25} />
+              <Text style={{margin: 7}}>Liên hệ: 1800 000663</Text>
             </View>
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <this.renderTKPB />
-                <this.renderTKPB />
-                <this.renderTKPB />
-                <this.renderTKPB />
-              </ScrollView>
-            </View>
-            <View
-              style={{
-                marginLeft: 15,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginHorizontal: 15,
-                marginTop: 20,
-              }}>
-              <Text style={styles.txt}>Nhãn hàng nổi bật</Text>
-            </View>
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
-                <this.renderNH />
-                <this.renderNH />
-                <this.renderNH />
-                <this.renderNH />
-                <this.renderNH />
-              </ScrollView>
-            </View>
-          </View>
-
-          <View
-            style={{
-              marginLeft: 15,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginHorizontal: 15,
-              marginTop: 20,
-            }}>
-            <Text style={styles.txt}>Lợi ích khi tham gia</Text>
-          </View>
-
-          <View
-            style={{marginHorizontal: 30, marginTop: 15, flexDirection: 'row'}}>
-            <Icon style={{marginTop: 3}} name="dollar" size={30} />
-            <View style={{marginLeft: 20}}>
-              <Text style={{fontSize: 14}}>Tăng thu nhập 10tr/tháng</Text>
-              <Text style={{fontSize: 12, color: '#808080'}}>
-                Đa dạng chương trình
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              height: 0.5,
-              width: '80%',
-              marginHorizontal: 30,
-              backgroundColor: 'gray',
-              marginTop: 10,
-            }}
-          />
-          <View
-            style={{marginHorizontal: 30, marginTop: 15, flexDirection: 'row'}}>
-            <Icon style={{marginTop: 3}} name="dollar" size={30} />
-            <View style={{marginLeft: 20}}>
-              <Text style={{fontSize: 14}}>Tăng thu nhập 10tr/tháng</Text>
-              <Text style={{fontSize: 12, color: '#808080'}}>
-                Đa dạng chương trình
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              height: 0.5,
-              width: '80%',
-              marginHorizontal: 30,
-              backgroundColor: 'gray',
-              marginTop: 10,
-            }}
-          />
-          <View
-            style={{marginHorizontal: 30, marginTop: 15, flexDirection: 'row'}}>
-            <Icon style={{marginTop: 3}} name="dollar" size={30} />
-            <View style={{marginLeft: 20}}>
-              <Text style={{fontSize: 14}}>Tăng thu nhập 10tr/tháng</Text>
-              <Text style={{fontSize: 12, color: '#808080'}}>
-                Đa dạng chương trình
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '75%',
-              height: 35,
-              justifyContent: 'center',
-              borderWidth: 0.5,
-              borderRadius: 10,
-              margin: 30,
-              marginHorizontal: 55,
-            }}>
-            <Icon style={{margin: 5}} name="headphones" size={25} />
-            <Text style={{margin: 7}}>Liên hệ: 1800 000663</Text>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
       </SafeAreaView>
+      // </View>
     );
   }
 }

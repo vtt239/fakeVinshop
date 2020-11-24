@@ -34,7 +34,7 @@ function TabScreen() {
       />
       <Tab.Screen
         name="Thông báo"
-        component={notiScreen}
+        component={UserScreen}
         options={{
           //title: 'Home',
           tabBarIcon: ({focused}) => (
